@@ -14,16 +14,18 @@ const server = http.createServer((req, res) => {
             const rs = fs.createReadStream('./form.html');
             rs.pipe(res);
             break;
-        case 'POST':
-            res.write('POST ' + req.url);
+        case 'POST':            
             let body = [];
             req.on('data', (chunk) => {
                 body.push(chunk);                
             }).on('end', () => {
                 body = Buffer.concat(body).toString();
-                console.info('[' + now + '] Data posted: ' + body);
-            });
-            res.end();
+                const decoded = decodeURIComponent(body);
+                console.info('[' + now + '] 投稿: ' + decoded);
+                res.write('<!DOCTYPE html><html lang="ja"><body><h1>' + 
+                    decoded + 'が投稿されました</h1></body></html>');
+                res.end();
+            });            
             break;
         default:
             break;        
