@@ -9,6 +9,10 @@ const server = http.createServer((req, res) => {
     res.write(req.headers['user-agent']);
     res.write('こんにちは！！')
     res.end();
+}).on('error', (e) => {
+    console.error('[' + new Date() + '] Server Error', e);
+}).on('clientError', (e) => {
+    console.error('[' + new Date() + '] Client Error', e);
 });
 const port = 8000;
 server.listen(port, () => {    
