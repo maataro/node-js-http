@@ -1,18 +1,18 @@
 'use strict'
 
 const http = require('http');
+const pug = require('pug');
 const server = http.createServer((req, res) => {
-    const now = new Date();
-    console.info('[' + now + '] Requested by ' + req.connection.remoteAddress);
-    res.writeHead(200, {
-        'Content-Type': 'text/html; charset=utf-8'        
+const now = new Date();
+console.info('[' + now + '] Requested by ' + req.connection.remoteAddress);
+res.writeHead(200, {
+    'Content-Type': 'text/html; charset=utf-8'        
     });
     
     switch (req.method) {
         case 'GET':
-            const fs = require('fs');
-            const rs = fs.createReadStream('./form.html');
-            rs.pipe(res);
+            res.write(pug.renderFile('./form.pug'));
+            res.end();
             break;
         case 'POST':            
             let body = [];
