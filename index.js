@@ -23,6 +23,12 @@ res.writeHead(200, {
                     firstItem: 'ごはん',
                     secondItem: 'パン'
                 }));
+            } else if (req.url == '/enquetes/shushi-pizza') {
+                res.write(pug.renderFile('./form.pug', {
+                    path: req.url,
+                    firstItem: '🍣',
+                    secondItem: '🍕'
+                }));
             }
             res.end();
             break;
