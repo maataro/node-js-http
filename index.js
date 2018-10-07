@@ -11,7 +11,11 @@ res.writeHead(200, {
     
     switch (req.method) {
         case 'GET':
-            res.write(pug.renderFile('./form.pug'));
+            res.write(pug.renderFile('./form.pug', {
+                path: req.url,
+                firstItem: '焼き肉',
+                secondItem: 'しゃぶしゃぶ'
+            }));
             res.end();
             break;
         case 'POST':            
